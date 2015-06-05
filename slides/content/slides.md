@@ -1,7 +1,14 @@
 name: intro
 class: center, middle
 
-# ES2015 + WebPack 
+# ES2015 + WebPack
+
+---
+class: center, middle
+
+# What is your name?
+
+![](images/name.gif)
 
 ---
 name: whoami
@@ -22,10 +29,18 @@ name: agenda
 
 # Agenda
 
-1. Getting Started with WebPack
 1. ES2015
+1. Getting Started with WebPack
 1. Babel-Loader
 1. Other Loaders
+
+---
+
+# ES6/2015
+
+* We've been stuck in ES5 since 2009
+* ES6 has been a long process
+* Technically it's now ES2015
 
 ---
 class: center, middle
@@ -79,5 +94,127 @@ npm install -g webpack
 ```
 
 * `-g` installs globally
+---
+
+# Lab 1
+
+1. Make sure node is running
+1. Install WebPack
+
+---
+class: center, middle
+
+# First thing to know...
+
+---
+class: center, middle
+
+# You might want to...
+
+![](images/runaway.gif)
+
+---
+class: center, middle
+
+# But it's worth it to stick around
+
+---
+class: left
+
+# First things first
+
+* Create a `webpack.config.js`
+
+---
+
+# First `webpack.config.js`
+
+```js
+module.exports = {
+  entry: ['./js/index.js'],
+  output: {
+    path: './dist',
+    filename: 'bundle.js'
+  }
+};
+```
+
+* Easy so far
+* Path, and filename, sure, but what's an `entry`?
+
+???
+
+Entries are places you start loading an app from
+
+---
+# First entry file
+
+* Write in commonjs, or AMD out of the gate
+
+--
+
+```js
+// js/index.js
+
+module.exports = function() {
+  console.log("obligatory Hello world!");
+};
+```
+
+* Create `js/index.js`
+
+---
+
+# require
+
+```js
+// js/index.js
+var camelot = require("./camelot.js");
+
+module.exports = function() {
+  console.log("obligatory Hello world!");
+};
+```
+
+* You can import other files with `require`
+* Create `js/camelot.js`
+
+---
+
+# Dependencies
+
+```js
+var Camelot = function() {};
+
+module.exports = Camelot;
+```
+
+* Put that content in `camelot.js`
+
+---
+class: center, middle
+
+# yaaaay
+
+![](images/rejoicing.gif)
+
+---
+
+# Improve the config
+
+```js
+resolve: {
+  extensions: [".js"]
+}
+```
+
+* Now you don't have to type `.js` in your `require`'s
+
+```js
+var camelot = require("./camelot");
+```
+
+---
+
 
 ---
