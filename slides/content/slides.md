@@ -2,6 +2,9 @@ name: intro
 class: center, middle
 
 # ES2015 + WebPack
+## The search for the holy grail
+
+<img src="images/grail.jpg" style="width: 20em" />
 
 ---
 class: center, middle
@@ -41,6 +44,20 @@ name: agenda
 * We've been stuck in ES5 since 2009
 * ES6 has been a long process
 * Technically it's now ES2015
+
+---
+
+# ES2015 things to cover
+
+* Arrow Methods
+* Classes
+* Modules
+* Template Strings
+* Destructuring
+* Splats
+* Default Function Args
+* Destructuring in function
+* Let, Const, var
 
 ---
 class: center, middle
