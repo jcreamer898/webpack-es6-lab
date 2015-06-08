@@ -45,11 +45,11 @@ class Emitter {
     remove.forEach((t) => topics.delete(t));
 
   }
-  trigger(name, data, ...args) {
-    const topics = [for (topic of this.topics.get(name)) {context: topic.context, fn: topic.fn}];
-
-    if (args.length) args.unshift(data);
-    else args = [data];
+  trigger(name, ...args) {
+    const topics = [for (topic of this.topics.get(name)) {
+      context: topic.context,
+      fn: topic.fn
+    }];
 
     let results = [for (topic of topics) new Promise((resolve) => {
       setTimeout(() => {

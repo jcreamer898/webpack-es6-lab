@@ -548,8 +548,7 @@ module.exports = {
 ```
 
 * Create new lab folder, copy existing `webpack.config.js` and modify
-* Add an `app.js` file
-
+* Add an `app.js` file, and we'll come back to it shortly
 
 ---
 
@@ -574,6 +573,8 @@ var calculateVelocityOfSwallow = function(type) {
   return velocity;
 };
 ```
+
+* How we do things now...
 
 ---
 
@@ -692,6 +693,29 @@ API.get({
 
 ---
 
+# Spat, and Rest
+
+```js
+// js/camelot.js
+trigger(name, ...args) {
+  // ...
+}
+```
+```js
+let camelot = new Camelot();
+
+camelot.trigger("eat.ham", { jam: "jam" });
+
+// or
+
+camelot.trigger("eat.ham", "and", "jam", "and", "spam" });
+// name="eat.ham" args = ["jam", "and", "spam"]
+```
+
+* The `...args` is called a *rest* parameter
+* Everything after "and", comes in as an array
+---
+
 # `class`
 
 ```js
@@ -719,7 +743,7 @@ class Emitter {
   }
   on(name, fn, opts = {}) {}
   off(name, fn, opts = {}) {}
-  trigger(name, data, ...args) {}
+  trigger(name, ...args) {} // we'll get to the "..."
 }
 
 module.exports = Emitter;
@@ -727,7 +751,7 @@ module.exports = Emitter;
 
 * Sugar for adding things to the prototype
 * No colons either
-* Add `js/emitter.js`
+* Add this code to `js/emitter.js`
 
 ---
 
@@ -746,7 +770,7 @@ class Camelot extends Emitter {
 
 * Use the `extends` keyword to inherit from the `Emitter`
 * Can use `super` to call inherited methods if overrides are needed
-* Create a new file called `js/camelot.js`
+* Create a new file called `js/camelot.js` and add that code
 ---
 
 # ES6 Modules
@@ -795,5 +819,20 @@ export function shrubbery() {
 ```
 
 * Still have to use old `function` here
+
+---
+
+# Back in app
+
+```js
+import Camelot from "./camelot";
+
+let camelot = new Camelot();
+
+console.log("on second thought...");
+```
+
+* Add all this code to `app.js`
+* Run `webpack`
 
 ---
