@@ -6,7 +6,7 @@ class: center, middle
 
 <img src="images/grail.jpg" style="width: 20em" />
 
-* Slides if you want to cheat... http://bit.ly/webpack-es6-lab
+Slides if you want to cheat... http://bit.ly/webpack-es6-lab
 
 ---
 class: center, middle
