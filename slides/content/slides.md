@@ -9,9 +9,9 @@ class: center, middle
 ---
 class: center, middle
 
-# What is your name?
+# There are some...
 
-![](images/name.gif)
+![](images/callme.gif)
 
 ---
 name: whoami
@@ -48,7 +48,7 @@ class: left
 
 # One bundler to rule them all
 
-* WebPack bundles things, lots of things
+* [WebPack](http://http://webpack.github.io/) bundles things, lots of things
 
 --
 
@@ -65,6 +65,11 @@ class: left
 --
 
 * &#10003; Images
+
+--
+
+* &#10003; .......
+
 
 ---
 class: center, middle
@@ -140,6 +145,8 @@ module.exports = {
 
 * Easy so far
 * Path, and filename, sure, but what's an `entry`?
+* Break apart your assets into separate bundles
+* Put all this content in `webpack.config.js`
 
 ???
 
@@ -162,12 +169,12 @@ module.exports = {
 };
 ```
 * Can pass an object of name/path pairs if you want multiples
-* Can also just do an array if you don't need multiple bundles
 
 ---
 # First entry file
 
 * Write in commonjs, or AMD out of the gate
+* We'll do commonjs
 
 --
 
@@ -228,7 +235,7 @@ class: center, middle
 # Loader's
 
 * WebPack is an all the things bundler
-* Use loaders to bring in bundle file types through different loaders
+* Use loaders to bring in and bundle different kinds of files types through loaders
 
 ---
 
@@ -263,7 +270,7 @@ npm install style-loader css-loader sass-loader
 
 ```css
 body {
-  background: red;
+  background: #ccc;
 }
 ```
 
@@ -277,10 +284,13 @@ body {
 // js/index.js
 require("../sass/app.scss");
 
-var Camelot = require("./camelot.js");
+var Camelot = require("./camelot");
 
 var camelot = new Camelot();
 ```
+
+* require css in my js file?!
+* You might be sad...
 
 ---
 
@@ -318,6 +328,7 @@ loaders: [{
 ```
 
 * Can also use the [Extract Text](https://github.com/webpack/extract-text-webpack-plugin) plugin
+* Will generate a css file per entry
 
 ---
 
@@ -349,7 +360,6 @@ output: {
 ```
 
 * AMD, UMD, CommonJS, CommonJS2, and Var (default).
-* Not doing this, just worth knowing
 
 ???
 
@@ -360,7 +370,8 @@ output: {
 # Plugins
 
 * Lots of different WebPack plugins
-* Help extract styles, common code, etc
+* Help extract styles, common code, uglify, ngmin, etc
+* Here's the [list](http://webpack.github.io/docs/list-of-plugins.html)
 
 ---
 
@@ -445,7 +456,25 @@ module.exports = {
 
 ---
 
-#
+# Try it!
+
+* Run `webpack` and hope for the best...
+
+---
+class: center, middle
+
+# yaaaay
+
+![](images/rejoicing.gif)
+
+---
+
+# So much more!
+
+
+* This hopefully peaks your interest
+* So much more you can do
+* Chunking, uglifying, dependency injection, localization, etc
 
 ---
 
@@ -460,7 +489,8 @@ class: left
 
 * We've been stuck in ES5 since 2009
 * ES6 has been a long process
-* Technically it's now ES2015
+* Originally ESHarmony after ES5
+* Technically it's now [ES2015](https://esdiscuss.org/topic/javascript-2015)
 
 ---
 
@@ -484,12 +514,21 @@ class: left
 * Then we'll build a small pub/sub module called `Camelot`
 
 ---
+class: center, middle
+
+# So what, it's not like I can use it in IE...
+
+![](images/oneday.gif)
+
+---
 
 # Babel
 
 * [Babel](http://babeljs.io) is a "transpiler"
-* Transpiles ES6 to ES5 for browser support
-* You can use a WebPack loader!
+* "Transpiles" ES6 to ES5 for browser support
+* Best part, you can use a WebPack loader!
+* [Try it!](https://babeljs.io/repl/)
+
 
 ---
 
@@ -516,7 +555,7 @@ module: {
 ```
 
 * Looks for all JS except modules
-* Can pass query params to all loaders
+* Can pass query params to all loaders to set options
 * Allows for ALL ES6 and ES7 features with `stage=0`
 
 ---
@@ -559,8 +598,8 @@ module.exports = {
 var calculateVelocityOfSwallow = function(type) {
   var strouhal = .3,
       amplitude = .22,
-      frequency = 15,
-      velocity = 0;
+      velocity = 0,
+      frequency;
 
   if (type === "african") {
     frequency = 18;
@@ -575,6 +614,9 @@ var calculateVelocityOfSwallow = function(type) {
 ```
 
 * How we do things now...
+* No "block scope"
+* Everything gets hoisted anyways so we declare stuff up top
+* Source for [airspeed velocity](http://style.org/unladenswallow/)
 
 ---
 
@@ -584,14 +626,17 @@ var calculateVelocityOfSwallow = function(type) {
 // u = 3fa
 var calculateVelocityOfSwallow = function(type = "african") {
   const strouhal = .3,
-    amplitude = .22;
+        amplitude = .22;
 
-  let frequency = 15;
+  let frequency = null;
 
   if (type === "african") {
     frequency = 18;
   } else if (type === "european") {
     frequency = 15;
+  } else {
+    let message = "We're only talking about swallows here, not " + type;
+    throw message;
   }
 
   let velocity = strouhal * frequency * amplitude;
@@ -603,12 +648,35 @@ var calculateVelocityOfSwallow = function(type = "african") {
 * Use `const` when you know a value won't change
 * Use `let` for everything though
 * Use `var` sparingly and only for legacy applications
-* No more hoisting, hurray!
-* Source for [airspeed velocity](http://style.org/unladenswallow/)
+
+---
+
+# `for`
+
+```js
+for (let i = 0; i < swallowCount; i++) {
+  // ...
+}
+i; // undefined
+```
+
+* There's now block scope
+* Can declare variables inside `if`, `for`, `while`, etc.
+* The `i` is defined only for the loop
 
 ---
 
 # Arrow Functions
+```js
+setTimeout(() => console.log("1 second later..."), 1000);
+```
+
+* Don't need `{}` if it's a 1 liner, implicit return
+* Automatically assigns `this`
+
+---
+
+# Default Parameters!
 
 ```js
 let calculateVelocityOfSwallow = (type = "african") => {
@@ -616,14 +684,6 @@ let calculateVelocityOfSwallow = (type = "african") => {
 };
 ```
 
-* Or
-
-```js
-setTimeout(() => console.log("1 second later..."), 1000);
-```
-
-* Don't need `{}` if it's a 1 liner, implicit return
-* Automatically assigns `this`
 * `type` defaults to "african"
 
 ---
@@ -661,6 +721,8 @@ let options = {
   timeout: 100
 };
 
+// ...
+
 let { url, timeout } = options;
 
 setTimeout(() => {
@@ -670,6 +732,7 @@ setTimeout(() => {
 }, timeout);
 ```
 
+* This one can be mind blowing
 * You "destructure" the object into variables
 
 ---
@@ -693,27 +756,21 @@ API.get({
 
 ---
 
-# Spat, and Rest
+# String Templates
 
 ```js
-// js/camelot.js
-trigger(name, ...args) {
-  // ...
-}
-```
-```js
-let camelot = new Camelot();
+let king = "Arthur";
 
-camelot.trigger("eat.ham", { jam: "jam" });
-
-// or
-
-camelot.trigger("eat.ham", "and", "jam", "and", "spam" });
-// name="eat.ham" args = ["jam", "and", "spam"]
+console.log(`I am ${king}. King of the Britains!`);
 ```
 
-* The `...args` is called a *rest* parameter
-* Everything after "and", comes in as an array
+* No more string concatenation!
+
+---
+class: center, middle
+
+# Let's try out some stuff
+
 ---
 
 # `class`
@@ -736,14 +793,14 @@ module.exports = Emitter;
 # `class`
 
 ```js
-// old way
+// mo betta way
 class Emitter {
   constructor() {
-
+    this.topics = {};  
   }
   on(name, fn, opts = {}) {}
   off(name, fn, opts = {}) {}
-  trigger(name, ...args) {} // we'll get to the "..."
+  trigger(name, ...args) {}
 }
 
 module.exports = Emitter;
@@ -755,12 +812,51 @@ module.exports = Emitter;
 
 ---
 
+# Rest parameter
+```js
+trigger(name, ...args) {}
+```
+
+```js
+let camelot = new Camelot();
+
+camelot.trigger("eat.ham", { jam: "jam" });
+// name="eat.ham" args = [{ jam: "jam" }]
+
+camelot.trigger("eat.ham", "and", "jam", "and", "spam" });
+// name="eat.ham" args = ["jam", "and", "spam"]
+```
+
+* The `...args` is called a *rest* parameter
+* Everything after "and", comes in as an array
+
+---
+
+# `on`
+
+```js
+on(name, fn, { context } = {}) {
+  let topics = this.topics[name] = this.topics[name] || [];
+
+  topics.push({
+    topic: `t_${Object.keys(topic).length + 1}`,
+    fn, context
+  });
+}
+```
+
+* Let's implement the `on` method in the emitter
+
+---
+
 # `class` inheritance
 
 ```js
 class Camelot extends Emitter {
   constructor() {
-    this.on("arrival", this.eatHam);
+    super();
+
+    this.on("arrival", this.eatHam, { context: this });
   }
   eatHam() {
     console.log("We eat ham and jam and spam a lot.");
@@ -768,9 +864,39 @@ class Camelot extends Emitter {
 }
 ```
 
+* Have to call `super` to call the `Emitter`'s constructor first
 * Use the `extends` keyword to inherit from the `Emitter`
 * Can use `super` to call inherited methods if overrides are needed
 * Create a new file called `js/camelot.js` and add that code
+---
+
+# Comprehensions
+
+```js
+trigger(name, ...args) {
+  let results = this.topics[name]
+    .filter((topic) => topic.fn)
+    .map((topic) => topic.fn.apply(topic.context, args));
+  });
+}
+```
+
+* With Comprehensions...
+
+```js
+trigger(name, ...args) {
+  let topics = this.topics[name];
+
+  let results = [for (topic of topics)
+    if (topic.fn) topic.fn.apply(topic.context, args)];
+
+  return results;
+}
+```
+
+* Can iterate something and return an array
+* More on [Comprehensions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Array_comprehensions)
+
 ---
 
 # ES6 Modules
@@ -819,6 +945,7 @@ export function shrubbery() {
 ```
 
 * Still have to use old `function` here
+* A few [others](http://www.2ality.com/2014/09/es6-modules-final.html) too...
 
 ---
 
@@ -827,12 +954,27 @@ export function shrubbery() {
 ```js
 import Camelot from "./camelot";
 
-let camelot = new Camelot();
+var camelot = new Camelot();
+camelot.trigger("arrival");
 
-console.log("on second thought...");
 ```
 
 * Add all this code to `app.js`
-* Run `webpack`
+* Add `libraryTarget: "commonjs"`
+* Run `webpack`, then `node dist/app`
 
 ---
+class: center, middle
+
+# Done
+
+![](images/silly_place.gif)
+
+---
+
+# Contact me!
+
+* We do Rails, Grunt, WebPack, ES6.
+* Would love to chat about code, or if you want a job...
+* [@jcreamer898](http://twitter.com/jcreamer898)
+* [jonathan.creamer@lonelyplanet.com](mailto:jonathan.creamer@lonelyplanet.com)
