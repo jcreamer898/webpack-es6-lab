@@ -507,6 +507,7 @@ class: left
 * Destructuring
 * Destructuring in functions
 * Template Strings
+* There's even [more](https://github.com/lukehoban/es6features), but only these today!
 
 ---
 
