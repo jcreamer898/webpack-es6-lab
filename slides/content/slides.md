@@ -22,7 +22,7 @@ class: left
 # whoami
 
 * Jonathan Creamer
-* Senior Front End Engineer at Lonely Planet
+* Senior Front End Developer at Lonely Planet
 
 <img src="images/lonelyplanet_bw.png" style="width: 10em" />
 
@@ -226,6 +226,12 @@ webpack
 * Should get a bundled file at `dist/bundle.js`
 
 ---
+
+# WebPack Watch
+
+* Can run `webpack --watch` to compile as you change things
+
+---
 class: center, middle
 
 # yaaaay
@@ -238,6 +244,11 @@ class: center, middle
 
 * WebPack is an all the things bundler
 * Use loaders to bring in and bundle different kinds of files types through loaders
+
+---
+class: center, middle
+
+# Loader's
 
 ---
 
@@ -255,6 +266,7 @@ module: {
 * The `test` looks for `scss`
 * Goes through the `sass-loader`, the `css-loader`, and the `style-loader` (explain shortly)
 * Tons of loaders (coffee, less, handlebars, etc)
+* Go ahead and add this to your webpack config
 
 ---
 
@@ -292,6 +304,7 @@ var camelot = new Camelot();
 ```
 
 * require css in my js file?!
+* Now run `webpack`
 * You might be sad...
 
 ---
@@ -334,12 +347,6 @@ loaders: [{
 
 ---
 
-# WebPack Watch
-
-* Can run `webpack --watch` to compile as you change things
-
----
-
 # Let's see it so far
 
 ```html
@@ -350,6 +357,41 @@ loaders: [{
 </body>
 </html>
 ```
+
+* Create an `index.html` file
+* It won't be pretty, but it should work eh?
+
+---
+class: center, middle
+
+
+# More options and plugins
+
+---
+
+# Alias
+
+```js
+resolve: {
+  alias: { 
+    backbone: "/path/to/backbone.js" 
+  }
+}
+```
+
+* Can set up alias'
+
+---
+
+# debug
+
+```js
+debug: true,
+devtool: "eval"
+```
+
+* Shows debug information
+* `eval`, `source-map`, `hidden-source-map`, and several others
 
 ---
 
@@ -394,7 +436,21 @@ module.exports = {
 * `npm install webpack`
 * Add a new files `js/arthur`  
 * Add it and a common to entries
-* Can include all vendor files
+* Can include vendor modules
+
+---
+
+# arthur.js
+
+```js
+var Camelot = require("./camelot");
+
+module.exports = function() {
+  console.log("Arthur kind of the Britains");
+};
+```
+
+* Add that content to `js/arthur.js`
 
 ---
 
@@ -421,7 +477,7 @@ module.exports = {
 
 ```
 
-* Add to bottom
+* Add to bottom of webpack config
 * 2 or more uses adds to common
 
 ---
@@ -570,7 +626,7 @@ var path = require("path");
 
 module.exports = {
   entry: {
-    app: "app"
+    app: "./js/app"
   },
   resolve: {
     extensions: [".js"],
@@ -801,7 +857,7 @@ class Emitter {
   constructor() {
     this.topics = {};  
   }
-  on(name, fn, opts = {}) {}
+  on(name, fn, { context } = {}) {
   off(name, fn, opts = {}) {}
   trigger(name, ...args) {}
 }
@@ -811,6 +867,7 @@ module.exports = Emitter;
 
 * Sugar for adding things to the prototype
 * No colons either
+* Constructor runs when you use `new`
 * Add this code to `js/emitter.js`
 
 ---
@@ -821,12 +878,12 @@ trigger(name, ...args) {}
 ```
 
 ```js
-let camelot = new Camelot();
+let emitter = new Emitter();
 
-camelot.trigger("eat.ham", { jam: "jam" });
+emitter.trigger("eat.ham", { jam: "jam" });
 // name="eat.ham" args = [{ jam: "jam" }]
 
-camelot.trigger("eat.ham", "and", "jam", "and", "spam" });
+emitter.trigger("eat.ham", "and", "jam", "and", "spam" });
 // name="eat.ham" args = ["jam", "and", "spam"]
 ```
 
@@ -842,7 +899,7 @@ on(name, fn, { context } = {}) {
   let topics = this.topics[name] = this.topics[name] || [];
 
   topics.push({
-    topic: `t_${Object.keys(topic).length + 1}`,
+    topic: `t_${Object.keys(topics).length + 1}`,
     fn, context
   });
 }
@@ -899,6 +956,7 @@ trigger(name, ...args) {
 
 * Can iterate something and return an array
 * More on [Comprehensions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Array_comprehensions)
+* Add this to `js/emitter`
 
 ---
 
@@ -921,7 +979,7 @@ export default Emitter;
 # `import`
 
 ```js
-import Emitter from "./utils/emitter";
+import Emitter from "./emitter";
 
 class Camelot extends Emitter {
 
@@ -938,17 +996,25 @@ export default Camelot;
 # Other types of exports
 
 ```js
+// ni.js
 export function swallow () {
 
 };
 
-export function shrubbery() {
+export default function shrubbery() {
 
 };
 ```
 
 * Still have to use old `function` here
 * A few [others](http://www.2ality.com/2014/09/es6-modules-final.html) too...
+* Mix defaults too
+
+```js
+import { swallow } from "./ni.js";
+```
+
+* Use destructuring to import
 
 ---
 
@@ -978,7 +1044,7 @@ class: center, middle
 # Contact me!
 
 * We do Rails, Grunt, WebPack, ES6.
-* Would love to chat about code, or if you want a job...
+* Would love to chat about code, or if you want a job, talk to me or Ben...
 * [@jcreamer898](http://twitter.com/jcreamer898)
 * [jonathan.creamer@lonelyplanet.com](mailto:jonathan.creamer@lonelyplanet.com)
 * http://bit.ly/webpack-es6-lab
