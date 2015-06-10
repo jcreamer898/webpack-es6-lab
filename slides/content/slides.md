@@ -877,7 +877,7 @@ module.exports = Emitter;
 ---
 class: center, middle
 
-# You mean I can write modern code in IE??
+# You mean I don't have to deal with prototypes anymore??
 
 ![](images/mercy.gif)
 
@@ -1056,7 +1056,9 @@ class: center, middle
 # Contact me!
 
 * We do Rails, Grunt, WebPack, ES6.
-* Would love to chat about code, or if you want a job, talk to me or Ben...
+* Would love to chat about code, or if you want a job, talk to me!
 * [@jcreamer898](http://twitter.com/jcreamer898)
+* [@lplabs](http://twitter.com/lplabs)
+* [@lonelyplanet](http://twitter.com/lonelyplanet)
 * [jonathan.creamer@lonelyplanet.com](mailto:jonathan.creamer@lonelyplanet.com)
 * http://bit.ly/webpack-es6-lab
