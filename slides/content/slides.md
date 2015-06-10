@@ -692,7 +692,7 @@ var calculateVelocityOfSwallow = function(type) {
 
 ```js
 // u = 3fa
-var calculateVelocityOfSwallow = function(type = "african") {
+let calculateVelocityOfSwallow = function(type = "african") {
   const strouhal = .3,
         amplitude = .22;
 
