@@ -48,7 +48,7 @@ class: center, middle
 ---
 class: left
 
-# One bundler to rule them all
+# It's all about the bundles
 
 * [WebPack](http://http://webpack.github.io/) bundles things, lots of things
 
@@ -194,7 +194,7 @@ console.log("obligatory hello world");
 
 ```js
 var Camelot = function() {
-  console.log("On second thought, let's not go to Camelot. Tis' a silly place...");
+  console.log("On second thought, let's not go to Camelot. 'Tis a silly place...");
 };
 
 module.exports = Camelot;
@@ -240,19 +240,19 @@ class: center, middle
 
 ---
 
-# Loader's
+# Loaders
 
 * WebPack is an all the things bundler
-* Use loaders to bring in and bundle different kinds of files types through loaders
+* Use loaders to bring in and bundle different kinds of files types
 
 ---
 class: center, middle
 
-# Loader's
+# Loaders
 
 ---
 
-# Loader's
+# Loaders
 
 ```js
 module: {
@@ -329,7 +329,7 @@ class: center, middle
 * `css-loader` accepts css
 * Sends to `style-loader`
 * Inlines the styles
-* Ala [instagram](https://www.youtube.com/watch?v=VkTCL6Nqm6Y)
+* A la [instagram](https://www.youtube.com/watch?v=VkTCL6Nqm6Y)
 
 ---
 
@@ -373,8 +373,8 @@ class: center, middle
 
 ```js
 resolve: {
-  alias: { 
-    backbone: "/path/to/backbone.js" 
+  alias: {
+    backbone: "/path/to/backbone.js"
   }
 }
 ```
@@ -408,6 +408,14 @@ output: {
 ???
 
 * Switch lab2 to commonjs and run with node
+
+---
+class: center, middle
+
+# How I feel when I write commonjs code that gets transpiled to AMD...
+
+
+![](images/newt.gif)
 
 ---
 
@@ -446,7 +454,7 @@ module.exports = {
 var Camelot = require("./camelot");
 
 module.exports = function() {
-  console.log("Arthur kind of the Britains");
+  console.log("Arthur king of the Britains");
 };
 ```
 
@@ -556,12 +564,13 @@ class: left
 
 * Classes
 * Modules
-* Arrow Methods
+* Arrow Functions
 * Let, Const, var
 * Default Function Args
 * Splats
 * Destructuring
 * Destructuring in functions
+* Comprehensions
 * Template Strings
 * There's even [more](https://github.com/lukehoban/es6features), but only these today!
 
@@ -709,6 +718,13 @@ var calculateVelocityOfSwallow = function(type = "african") {
 * Use `var` sparingly and only for legacy applications
 
 ---
+class: center, middle
+
+# Swallows...
+
+![](images/swallows.gif)
+
+---
 
 # `for`
 
@@ -757,18 +773,6 @@ let options = { url, timeout }; // { url: url, timeout: timeout }
 ```
 
 * If you're using the same key as a value, just ignore the value
-
----
-
-# Dynamic Object Keys
-
-```js
-let topic = {
-  "topic_" + Math.random() * 100: "foo"
-};
-```
-
-* Can have a dynamic key now
 
 ---
 
@@ -857,7 +861,7 @@ class Emitter {
   constructor() {
     this.topics = {};  
   }
-  on(name, fn, { context } = {}) {
+  on(name, fn, { context } = {}) {}
   off(name, fn, opts = {}) {}
   trigger(name, ...args) {}
 }
@@ -869,6 +873,13 @@ module.exports = Emitter;
 * No colons either
 * Constructor runs when you use `new`
 * Add this code to `js/emitter.js`
+
+---
+class: center, middle
+
+# You mean I can write modern code in IE??
+
+![](images/mercy.gif)
 
 ---
 
@@ -884,7 +895,7 @@ emitter.trigger("eat.ham", { jam: "jam" });
 // name="eat.ham" args = [{ jam: "jam" }]
 
 emitter.trigger("eat.ham", "and", "jam", "and", "spam" });
-// name="eat.ham" args = ["jam", "and", "spam"]
+// name="eat.ham" args = ["and", "jam", "and", "spam"]
 ```
 
 * The `...args` is called a *rest* parameter
@@ -954,6 +965,7 @@ trigger(name, ...args) {
 }
 ```
 
+* **NOTE:** This is experimental, but really fun...
 * Can iterate something and return an array
 * More on [Comprehensions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Array_comprehensions)
 * Add this to `js/emitter`
